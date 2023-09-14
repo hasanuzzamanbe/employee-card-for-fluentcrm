@@ -46,10 +46,10 @@ $iconClasses = [
     <div class="max-w-[400px] shadow-lg relative h-screen employee-card-wrapper">
         <div class="pb-[50px]">
             <div class="w-full relative">
-                <img class="w-full object-fill" src="<?= $employee->image ?>"/>
+                <img id="employee_profile_image" class="w-full object-fill" src="<?= $employee->image ?>"/>
                 <div class="absolute bottom-0 w-full bg-gradient-to-t from-black min-h-24 p-4">
-                    <h1 class="text-center text-white m-2"><?= $employee->name ?></h1>
-                    <p class="text-center text-white m-0"><?= $employee->designation ?></p>
+                    <h1 class="text-center text-white m-2" id="employee_name"><?= $employee->name ?></h1>
+                    <p id="employee_designation" class="text-center text-white m-0"><?= $employee->designation ?></p>
                     <div class="flex gap-4">
                         <div class="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center cursor-pointer">
                             <a href=tel:<?php echo $employee->phone; ?>">
@@ -111,7 +111,7 @@ $iconClasses = [
                     <div class="col-span-1">
                         <i class="<?= $iconClasses['phone'] ?>"></i>
                     </div>
-                    <div class="col-span-6">
+                    <div id="employee_phone" class="col-span-6">
                         <?= $employee->phone ?>
                     </div>
                 </div>
@@ -125,7 +125,7 @@ $iconClasses = [
                     <div class="col-span-1">
                         <i class="<?= $iconClasses['email'] ?>"></i>
                     </div>
-                    <div class="col-span-6">
+                    <div id="employee_email" class="col-span-6">
                         <?= $employee->email ?>
                     </div>
                 </div>
@@ -191,12 +191,12 @@ $iconClasses = [
 
         <div class="px-4 fixed bottom-0 w-[400px]">
             <div class=" text-center">
-                <button class="rounded bg-blue-500 w-full text-white px-4 py-2">Add Contact</button>
+                <button id="employee_vcard_download" class="rounded bg-blue-500 w-full text-white px-4 py-2">Add Contact</button>
             </div>
         </div>
     </div>
 </div>
 
-
+<script src="<?= EMPLOYEE_CARD_URL . 'assets/admin/js/front-end.js' ?>"></script>
 </body>
 </html>

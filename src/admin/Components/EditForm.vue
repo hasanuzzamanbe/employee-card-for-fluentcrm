@@ -191,7 +191,9 @@ import MediaButton from './MediaButton.vue'
 export default {
   name: 'edit-form',
   data () {
-    return {}
+    return {
+      
+    }
   },
   components: {
     MediaButton

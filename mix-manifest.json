@@ -1,5 +1,6 @@
 {
     "/assets/admin/js/start.js": "/assets/admin/js/start.js",
+    "/assets/admin/js/front-end.js": "/assets/admin/js/front-end.js",
     "/assets/css/front-end.css": "/assets/css/front-end.css",
     "/assets/css/element.css": "/assets/css/element.css"
 }

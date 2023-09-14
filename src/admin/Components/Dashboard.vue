@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 pr-8">
     <div class="flex items-center justify-between">
-      <h1>Dashboard</h1>
+      <h1>Employees</h1>
       <el-button class="" @click="addOrEdit">Add employee info</el-button>
     </div>
     <div>
@@ -23,8 +23,8 @@
           <p>{{ emp.email }}</p>
           <p>{{ emp.designation }}</p>
           <el-button-group class="mt-2">
-            <el-button size="small" @click="edit(emp)">Edit</el-button>
-            <el-button size="small" @click="view">View</el-button>
+            <!-- <el-button size="small" @click="edit(emp)">Edit</el-button> -->
+            <el-button size="small" @click="() => $router.push({name: 'employee', params: {id: emp.id}})">Edit</el-button>
           </el-button-group>
 
           <el-popconfirm title="Are you sure to delete this?" @confirm="deleteEmployee(emp.id)">
@@ -40,7 +40,7 @@
 
       <el-dialog
         v-model="addOrEditDialog"
-        title="Update Employee Info"
+        title="Add Employee Info"
         width="70%"
         align-center
       >
@@ -90,11 +90,6 @@ export default {
       employeeMock: {}
     }
   },
-  // computed: {
-  //     delete() {
-  //         return Delete;
-  //     }
-  // },
   methods: {
     view () {},
     deleteEmployee(id) {
@@ -113,7 +108,7 @@ export default {
       })
     },
     addOrEdit (emp) {
-      this.employee = this.employeeMock
+      this.employee = JSON.parse(JSON.stringify(this.employeeMock))
       this.addOrEditDialog = true
     },
     edit (emp) {

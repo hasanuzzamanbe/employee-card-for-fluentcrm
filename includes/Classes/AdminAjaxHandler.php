@@ -148,14 +148,8 @@ class AdminAjaxHandler
             ));
         }
 
-        if (!$employee) {
-            wp_send_json_error(array(
-                'message' => 'Not added!'
-            ), 401);
-        }
-
         wp_send_json_success([
-            'message' => 'Employee added successfully!',
+            'message' => 'Employee updated successfully!',
             'data' => $employee
         ]);
 

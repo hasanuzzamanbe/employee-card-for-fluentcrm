@@ -36,13 +36,12 @@ class EmployeeCard
             return $query_vars;
         } );
 
+
+
         add_action( 'template_include', function( $template ) {
             if ( get_query_var( 'contact_card' ) == false || get_query_var( 'contact_card' ) == '' ) {
                 return $template;
             }
-
-
-
 
             return EMPLOYEE_CARD_DIR.'/views/contactcard.php';
         } );
@@ -66,19 +65,19 @@ class EmployeeCard
                 'manage_options',
                 'employee-card.php',
                 array($this, 'renderAdminPage'),
-                'dashicons-editor-code',
+                'dashicons-admin-users',
                 25
             );
             $submenu['employee-card.php']['dashboard'] = array(
-                'Dashboard',
+                'Employees',
                 'manage_options',
                 'admin.php?page=employee-card.php#/',
             );
-            $submenu['employee-card.php']['contact'] = array(
-                'Contact',
-                'manage_options',
-                'admin.php?page=employee-card.php#/contact',
-            );
+            // $submenu['employee-card.php']['contact'] = array(
+            //     'Contact',
+            //     'manage_options',
+            //     'admin.php?page=employee-card.php#/contact',
+            // );
         });
     }
 
@@ -92,20 +91,22 @@ class EmployeeCard
         $employee_card = apply_filters('employee_card/admin_app_vars', array(
             //'image_upload_url' => admin_url('admin-ajax.php?action=wpf_global_settings_handler&route=wpf_upload_image'),
             'assets_url' => EMPLOYEE_CARD_URL . 'assets/',
-            'ajaxurl' => admin_url('admin-ajax.php')
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'site_url' => site_url(),
         ));
 
         wp_localize_script('employee_card-script-boot', 'employeeCard', $employee_card);
 
+    //     <div class="main-menu text-white-200 bg-wheat-600 p-4">
+    //     <router-link to="/">
+    //         Home
+    //     </router-link> |
+    //     <router-link to="/contact" >
+    //         Contact
+    //     </router-link>
+    // </div>
+
         echo '<div class="employee_card-admin-page" id="employee_card_app">
-            <div class="main-menu text-white-200 bg-wheat-600 p-4">
-                <router-link to="/">
-                    Home
-                </router-link> |
-                <router-link to="/contact" >
-                    Contact
-                </router-link>
-            </div>
             <hr/>
             <router-view></router-view>
         </div>';
