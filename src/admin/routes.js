@@ -1,5 +1,6 @@
 import Dashboard from './Components/Dashboard.vue';
 import Contact from './Components/Contact.vue';
+import Employee from './Components/Employee.vue';
 
 export default [{
         path: '/',
@@ -13,5 +14,10 @@ export default [{
         path: '/contact',
         name: 'contact',
         component: Contact
+    },
+    {
+        path: '/employee/:id',
+        name: 'employee',
+        component: Employee
     }
 ];

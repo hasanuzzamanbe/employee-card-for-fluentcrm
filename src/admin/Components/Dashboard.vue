@@ -5,7 +5,7 @@
       <el-button class="" @click="addOrEdit">Add employee info</el-button>
     </div>
     <div>
-      <div
+      <div v-if="employees.length !== 0"
         class="employee-card-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         <div
@@ -33,6 +33,9 @@
             </template>
           </el-popconfirm>
         </div>
+      </div>
+      <div v-else>
+        <p class="text-center">No employee found! Please add some.</p>
       </div>
 
       <el-dialog
@@ -75,7 +78,12 @@ export default {
           facebook: '',
           twitter: '',
           linkedin: '',
-          instagram: ''
+          instagram: '',
+          github: '',
+          figma: '',
+          wordpress: '',
+          dribble: '',
+          website: '',
         },
         status: 1
       },

@@ -106,6 +106,60 @@
         </el-col>
 
         <el-col :span="12">
+          <el-form-item label="Instagram">
+            <el-input
+              v-model="employee.social_info.instagram"
+              placeholder="https://instagram.com/username"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+        <!-- github -->
+          <el-form-item label="Github">
+            <el-input
+              v-model="employee.social_info.github"
+              placeholder="github url">
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <!-- website -->
+        <el-col :span="12">
+          <el-form-item label="Website">
+            <el-input
+              v-model="employee.social_info.website"
+              placeholder="website url">
+            </el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="Wordpress">
+            <el-input
+              v-model="employee.social_info.wordpress"
+              placeholder="wordpress url">
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <!-- dribble -->
+        <el-col :span="12">
+          <el-form-item label="Dribble">
+            <el-input
+              v-model="employee.social_info.dribble"
+              placeholder="dribble url">
+            </el-input>
+          </el-form-item>
+        </el-col>
+        <!-- figma -->
+        <el-col :span="12">
+          <el-form-item label="Figma">
+            <el-input
+              v-model="employee.social_info.figma"
+              placeholder="figma url">
+            </el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
           <el-form-item label="Profile image">
             <div class="flex gap-2 items-center">
               <div>

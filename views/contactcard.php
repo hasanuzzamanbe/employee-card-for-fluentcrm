@@ -1,5 +1,9 @@
 <?php
 $employee = emcDb()->table('employee_card_info')->find(get_query_var('contact_card'));
+if (is_null($employee)) {
+    echo '<h1 class="text-center text-white m-2">Employee not found!</h1>';
+    exit;
+}
 $socialInfo = json_decode($employee->social_info);
 
 $iconClasses = [
@@ -39,7 +43,7 @@ $iconClasses = [
 <body class="bg-black m-0">
 
 <div class="flex justify-center ">
-    <div class="max-w-[400px] shadow-lg relative h-screen overflow-scroll">
+    <div class="max-w-[400px] shadow-lg relative h-screen employee-card-wrapper">
         <div class="pb-[50px]">
             <div class="w-full relative">
                 <img class="w-full object-fill" src="<?= $employee->image ?>"/>
@@ -48,6 +52,7 @@ $iconClasses = [
                     <p class="text-center text-white m-0"><?= $employee->designation ?></p>
                     <div class="flex gap-4">
                         <div class="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center cursor-pointer">
+                            <a href=tel:<?php echo $employee->phone; ?>">
                             <svg class="w-4 h-4 fill-white" focusable="false" viewBox="0 0 20 20" aria-hidden="true"
                                  style="font-size: 10px;">
                                 <path d="M9.105 7.38l-2.829 2.829c-1.040 1.040-2.729 1.040-3.771 0l-0.943-0.943c-2.083-2.084-2.083-5.46 0-7.544l0.943-0.943c1.041-1.040 2.731-1.040 3.771 0l2.829 2.829c1.041 1.041 1.041 2.729 0 3.771z"></path>
@@ -55,19 +60,22 @@ $iconClasses = [
                                 <path d="M13.026 17.763v0c-0.82 0.819-2.148 0.819-2.967 0l-8.347-8.347c-0.82-0.82-0.82-2.148 0-2.967 0.819-0.82 2.147-0.82 2.965 0l8.348 8.347c0.819 0.82 0.819 2.148 0 2.967z">
                                 </path>
                             </svg>
+                            </a>
                         </div>
 
                         <div class="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center cursor-pointer">
-                            <svg class="w-4 h-4 fill-white" focusable="false" viewBox="0 0 16 13" aria-hidden="true">
-                                <path d="M14 13H2C0.896 13 0 12.104 0 11V3C0 1.896 0.896 1 2 1H14C15.104 1 16 1.896 16 3V11C16 12.104 15.104 13 14 13Z"
-                                      fill-rule="evenodd" clip-rule="evenodd" fill="white"></path>
-                                <path d="M1 1L6.586 6.431C7.367 7.19 8.633 7.19 9.414 6.431L15 1" class="stroke-gray-400"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M2 11L5 8" class="stroke-gray-400" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                                <path d="M14 11L11 8" class="stroke-gray-400" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                            </svg>
+                            <a href="mailto:<?php echo $employee->email; ?>">
+                                <svg class="w-4 h-4 fill-white" focusable="false" viewBox="0 0 16 13" aria-hidden="true">
+                                    <path d="M14 13H2C0.896 13 0 12.104 0 11V3C0 1.896 0.896 1 2 1H14C15.104 1 16 1.896 16 3V11C16 12.104 15.104 13 14 13Z"
+                                        fill-rule="evenodd" clip-rule="evenodd" fill="white"></path>
+                                    <path d="M1 1L6.586 6.431C7.367 7.19 8.633 7.19 9.414 6.431L15 1" class="stroke-gray-400"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M2 11L5 8" class="stroke-gray-400" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M14 11L11 8" class="stroke-gray-400" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
                         </div>
 
                         <div class="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center cursor-pointer">
@@ -89,12 +97,15 @@ $iconClasses = [
                 </div>
             </div>
 
+        <?php if ($employee->description): ?>
             <div class="mt-4 px-4">
                 <div class="rounded-lg shadow bg-white p-8">
                     <?= $employee->description ?>
                 </div>
             </div>
+        <?php endif; ?>
 
+        <?php if (!empty($employee->phone)): ?>
             <div class="mt-2 px-4 py-2">
                 <div class="rounded-lg shadow bg-white p-8 grid grid-cols-7">
                     <div class="col-span-1">
@@ -106,6 +117,9 @@ $iconClasses = [
                 </div>
             </div>
 
+        <?php endif; ?>
+
+        <?php if (!empty($employee->email)): ?>
             <div class="mt-2 px-4 py-2">
                 <div class="rounded-lg shadow bg-white p-8 grid grid-cols-7">
                     <div class="col-span-1">
@@ -116,6 +130,7 @@ $iconClasses = [
                     </div>
                 </div>
             </div>
+        <?php endif; ?>
 
             <div class="mt-2 px-4 py-2">
                 <div class="rounded-lg shadow bg-white p-8 grid grid-cols-7">
@@ -148,11 +163,13 @@ $iconClasses = [
             <div class="mt-2 px-4 py-2">
                 <div class="rounded-lg shadow bg-white p-8 ">
                     <h3>Social Info</h3>
-                    <?php foreach ($socialInfo as $name => $info): ?>
+                    <?php foreach ($socialInfo as $name => $info): 
+                        if (!empty($info)):
+                        ?>
                         <div class="grid grid-cols-7">
                             <div class="col-span-1 flex items-center">
                                 <div class="w-8 h-8 flex justify-center items-center">
-                                    <?php if(isset($iconClasses[$name])):?>
+                                    <?php if (isset($iconClasses[$name])):?>
                                         <i class="<?= $iconClasses[$name] ?>"></i>
                                     <?php else: ?>
                                         <span class="uppercase flex justify-center items-center w-full h-full rounded-full border-2"><?= substr($name, 0, 1) ?></span>
@@ -164,7 +181,9 @@ $iconClasses = [
                             </div>
                         </div>
 
-                    <?php endforeach; ?>
+                    <?php endif;
+                        endforeach; 
+                    ?>
 
                 </div>
             </div>
@@ -172,7 +191,7 @@ $iconClasses = [
 
         <div class="px-4 fixed bottom-0 w-[400px]">
             <div class=" text-center">
-                <button class="rounded-2xl bg-blue-500 text-white px-4 py-2">Add Contact</button>
+                <button class="rounded bg-blue-500 w-full text-white px-4 py-2">Add Contact</button>
             </div>
         </div>
     </div>

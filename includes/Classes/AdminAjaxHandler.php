@@ -45,7 +45,7 @@ class AdminAjaxHandler
         }
 
         wp_send_json_success([
-            'message' => 'Employee added successfully!',
+            'message' => 'Employee fetched successfully!',
             'data' => $employees
         ]);
     }
@@ -75,9 +75,23 @@ class AdminAjaxHandler
     public function getEmployee()
     {
         $id = sanitize_text_field($_REQUEST['id']);
+        if (!$id) {
+            wp_send_json_error(array(
+                'message' => 'Please provide a employee id!'
+            ), 401);
+        }
 
         $employee = emcDb()->table('employee_card_info')->where('id', $id)->first();
-        wp_send_json_success($employee);
+
+        $employee->social_info = json_decode($employee->social_info);
+        $employee->other_info = json_decode($employee->other_info);
+
+        wp_send_json_success(
+            [
+                'message' => 'Employee found!',
+                'data' => $employee
+            ]
+        );
     }
 
     public function updateEmployee($request)
