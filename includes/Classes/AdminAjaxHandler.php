@@ -9,6 +9,7 @@ class AdminAjaxHandler
     {
         add_action('wp_ajax_employee_card_admin_ajax', array($this, 'handleEndPoint'));
     }
+
     public function handleEndPoint()
     {
         if (!isset($_REQUEST['route'])) {
@@ -51,7 +52,7 @@ class AdminAjaxHandler
 
     public function deleteEmployee($request)
     {
-        if (!isset( $request['id'])) {
+        if (!isset($request['id'])) {
             wp_send_json_error(array(
                 'message' => 'Please provide a employee id!'
             ));
@@ -96,12 +97,13 @@ class AdminAjaxHandler
             'email' => sanitize_text_field($employee['email']),
             'phone' => sanitize_text_field($employee['phone']),
             'image' => sanitize_text_field($employee['image']),
+            'description' => sanitize_text_field($employee['description']),
             'designation' => sanitize_text_field($employee['designation']),
             'address_1' => sanitize_text_field($employee['address_1']),
             'city' => sanitize_text_field($employee['city']),
             'state' => sanitize_text_field($employee['state']),
             'postcode' => sanitize_text_field($employee['postcode']),
-             'status' => 'active',
+            'status' => 'active',
         ];
 
         $social_info = $employee['social_info'];
@@ -115,7 +117,7 @@ class AdminAjaxHandler
 
         if ($id) {
             $data['updated_at'] = current_time('mysql');
-                
+
             $employee = emcDb()->table('employee_card_info')->where('id', $id)->update($data);
 
         } else {
@@ -123,7 +125,7 @@ class AdminAjaxHandler
             $data['updated_at'] = current_time('mysql');
             $employee = emcDb()->table('employee_card_info')->insert([
                 $data
-             ]);
+            ]);
         }
 
         if (is_wp_error($employee)) {

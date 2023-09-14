@@ -13,11 +13,22 @@
         <el-col :span="12">
           <el-form-item label="Email">
             <el-input
-              v-model="employee.email"
-              placeholder="Enter your name"
+                v-model="employee.email"
+                placeholder="Enter your name"
             ></el-input>
           </el-form-item>
         </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="Description">
+            <el-input
+                type="textarea"
+                v-model="employee.description"
+                placeholder="Description"
+            ></el-input>
+          </el-form-item>
+        </el-col>
+
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">

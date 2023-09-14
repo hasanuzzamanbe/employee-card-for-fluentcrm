@@ -34,4 +34,6 @@ mix.webpackConfig({
 // mix.setResourceRoot('../');
 mix
     .js('src/admin/start.js', 'assets/admin/js/start.js').vue({ version: 3 })
-    .sass('src/scss/admin/app.scss', 'assets/css/element.css');
+    .sass('src/scss/admin/app.scss', 'assets/css/element.css')
+    .css('src/tailwind-assets/front-end.css', 'assets/css/front-end.css');
+

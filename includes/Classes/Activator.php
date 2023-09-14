@@ -53,6 +53,7 @@ class Activator
             id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
             status VARCHAR(20) NOT NULL DEFAULT 'active',
             name MEDIUMTEXT NOT NULL,
+            description MEDIUMTEXT NOT NULL,
             designation MEDIUMTEXT NOT NULL,
             address_1 MEDIUMTEXT NOT NULL,
             city MEDIUMTEXT NOT NULL,

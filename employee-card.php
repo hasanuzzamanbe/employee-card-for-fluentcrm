@@ -13,14 +13,39 @@ define('EMPLOYEE_CARD_DIR', plugin_dir_path(__FILE__));
 
 define('EMPLOYEE_CARD_VERSION', '1.0.5');
 
-class EmployeeCard {
+class EmployeeCard
+{
     public function boot()
     {
+        $this->registerFrontendRoute();
         $this->loadClasses();
         $this->registerShortCodes();
         $this->ActivatePlugin();
         $this->renderMenu();
         $this->registerEndpoints();
+    }
+
+    public function registerFrontendRoute()
+    {
+        add_action( 'init',  function() {
+            add_rewrite_rule( 'contact_card/([a-z0-9-]+)[/]?$', 'index.php?contact_card=$matches[1]', 'top' );
+        } );
+
+        add_filter( 'query_vars', function( $query_vars ) {
+            $query_vars[] = 'contact_card';
+            return $query_vars;
+        } );
+
+        add_action( 'template_include', function( $template ) {
+            if ( get_query_var( 'contact_card' ) == false || get_query_var( 'contact_card' ) == '' ) {
+                return $template;
+            }
+
+
+
+
+            return EMPLOYEE_CARD_DIR.'/views/contactcard.php';
+        } );
     }
 
     public function loadClasses()

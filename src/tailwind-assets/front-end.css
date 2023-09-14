@@ -1,0 +1,4 @@
+@config "./frontend.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
