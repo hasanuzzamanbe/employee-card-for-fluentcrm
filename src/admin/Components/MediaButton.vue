@@ -1,6 +1,6 @@
 <template>
   <button type="button" class='rounded-sm bg-primary-500 py-2 px-4 border-0 shadow text-[14px] font-medium cursor-pointer'
-          @click="openMediaFrame">Add Media
+          @click="openMediaFrame">Profile Image
   </button>
 </template>
 

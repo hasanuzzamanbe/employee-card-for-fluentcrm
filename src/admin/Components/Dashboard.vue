@@ -41,7 +41,6 @@
 
       <el-dialog
         v-model="addOrEditDialog"
-        title="Add Employee Info"
         width="70%"
         align-center
       >

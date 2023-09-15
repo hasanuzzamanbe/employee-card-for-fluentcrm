@@ -6,3 +6,13 @@
 a:focus {
     box-shadow: none;
 }
+
+.employee-info-wrapper {
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+
+.employee-info-wrapper::-webkit-scrollbar {
+    display:none;
+}
