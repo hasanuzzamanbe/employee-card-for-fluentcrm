@@ -1,9 +1,15 @@
 <template>
   <div class="w-[calc(100%+20px)] h-full ml-[-20px] lg:absolute">
     <div class="grid grid-cols-1 lg:grid-cols-4 h-full ">
-      <div class="col-span-full lg:col-span-3 h-full lg:overflow-scroll">
+      <div class="col-span-full lg:col-span-3 h-full lg:overflow-y-scroll employee-info-wrapper">
         <div class=" h-screen">
+
           <div class="employee-card p-8">
+
+            <div class="flex flex-wrap items-center mb-4">
+              <a class="cursor-pointer text-lg" @click="$router.go(-1)"> Employees </a><span> / {{ employee?.name }}</span>
+            </div>
+
             <el-button @click="edit" :icon="Edit" class="float-right">Edit Employee</el-button>
 
             <div class="employee-profile">

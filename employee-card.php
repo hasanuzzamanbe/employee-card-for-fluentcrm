@@ -106,7 +106,7 @@ class EmployeeCard
     //     </router-link>
     // </div>
 
-        echo '<div class="employee_card-admin-page relative lg:h-[calc(100vh-75px)] overflow-scroll lg:overflow-visible" id="employee_card_app">
+        echo '<div class="employee_card-admin-page relative lg:h-[calc(100vh-97px)] overflow-scroll lg:overflow-visible" id="employee_card_app">
             <router-view></router-view>
         </div>';
     }
