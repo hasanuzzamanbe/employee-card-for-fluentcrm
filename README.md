@@ -1,26 +1,35 @@
-# Employee Contact card generator and vcf contact downloader
-# Plugin name : Employee Card
+# Employee Contact card generator and vcf contact downloader (WordPress plugin)
 
-# Frontend:
-<div style="display: flex; gap: 20px;">
-<img width="300" src="./src/demo/frontend_demo.png" />
+## Plugin name: Employee Card
 
-<img width="" src="./src/demo/save_contact_demo.png" />
-</div>
+## Plugin Description: 
+WordPress plugin to manage employee profile. Card generator with contact downloads. (Contact.vcf)
 
-<img style="width: 400px; margin-top: 12px; " src="./src/demo/admin_page_demo.png" />
+# Demo Images: 
+
+<img  src="./src/demo/contact-card.png" />
 
 
-# How to use ?
+
+# How to use?
 
 - Just clone/fork this repository
+- Upload it in your wp plugins directory
 - Check the package.json file
-- command: `npm i`
-- command: `npm run watch` for development and for production: `npm run production`
+
+For development run
+```bash
+npm i && npm run watch
+```
+
+For production run
+```bash
+npm i && npm run build
+```
 
 
 
 
-If you face any issue feel free to let me know. :)
+If you face any issue, feel free to let me know. :)
 
 <br/>
