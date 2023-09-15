@@ -23,8 +23,9 @@
           <p>{{ emp.email }}</p>
           <p>{{ emp.designation }}</p>
           <el-button-group class="mt-2">
-            <!-- <el-button size="small" @click="edit(emp)">Edit</el-button> -->
             <el-button size="small" @click="() => $router.push({name: 'employee', params: {id: emp.id}})">Edit</el-button>
+            <el-button size="small" @click="view(emp.id)">View</el-button>
+
           </el-button-group>
 
           <el-popconfirm title="Are you sure to delete this?" @confirm="deleteEmployee(emp.id)">
@@ -91,7 +92,9 @@ export default {
     }
   },
   methods: {
-    view () {},
+    view (id) {
+      window.open(window.employeeCard.site_url + '/contact_card/' + id, '_blank')
+    },
     deleteEmployee(id) {
         this.$adminPost({
                 route: 'delete_employee',
