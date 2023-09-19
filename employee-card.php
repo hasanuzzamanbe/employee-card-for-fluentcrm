@@ -27,24 +27,23 @@ class EmployeeCard
 
     public function registerFrontendRoute()
     {
-        add_action( 'init',  function() {
-            add_rewrite_rule( 'contact_card/([a-z0-9-]+)[/]?$', 'index.php?contact_card=$matches[1]', 'top' );
-        } );
+        add_action('init', function () {
+            add_rewrite_rule('person/([a-f0-9]{32})?$', 'index.php?person=$matches[1]', 'top');
+        });
 
-        add_filter( 'query_vars', function( $query_vars ) {
-            $query_vars[] = 'contact_card';
+        add_filter('query_vars', function ($query_vars) {
+            $query_vars[] = 'person';
             return $query_vars;
-        } );
+        });
 
 
-
-        add_action( 'template_include', function( $template ) {
-            if ( get_query_var( 'contact_card' ) == false || get_query_var( 'contact_card' ) == '' ) {
+        add_action('template_include', function ($template) {
+            if (get_query_var('person') == false || get_query_var('person') == '') {
                 return $template;
             }
 
-            return EMPLOYEE_CARD_DIR.'/views/contactcard.php';
-        } );
+            return EMPLOYEE_CARD_DIR . '/views/contactcard.php';
+        });
     }
 
     public function loadClasses()
@@ -97,14 +96,14 @@ class EmployeeCard
 
         wp_localize_script('employee_card-script-boot', 'employeeCard', $employee_card);
 
-    //     <div class="main-menu text-white-200 bg-wheat-600 p-4">
-    //     <router-link to="/">
-    //         Home
-    //     </router-link> |
-    //     <router-link to="/contact" >
-    //         Contact
-    //     </router-link>
-    // </div>
+        //     <div class="main-menu text-white-200 bg-wheat-600 p-4">
+        //     <router-link to="/">
+        //         Home
+        //     </router-link> |
+        //     <router-link to="/contact" >
+        //         Contact
+        //     </router-link>
+        // </div>
 
         echo '<div class="employee_card-admin-page relative lg:h-[calc(100vh-97px)] overflow-scroll lg:overflow-visible" id="employee_card_app">
             <router-view></router-view>
@@ -133,7 +132,16 @@ class EmployeeCard
     }
 }
 
+
 (new EmployeeCard())->boot();
 
 
 
+
+
+//$parsedUrl = (new \EmployeeCard\Classes\URL())->sign('test\{id}',['id'=>'1']);
+//$isValid = (new \EmployeeCard\Classes\URL())->isValidSignedUrl($parsedUrl);
+//
+//echo $parsedUrl.'<br>';
+//var_dump($isValid);
+//die();

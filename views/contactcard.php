@@ -1,5 +1,5 @@
 <?php
-$employee = emcDb()->table('employee_card_info')->find(get_query_var('contact_card'));
+$employee = emcDb()->table('employee_card_info')->where('hash',get_query_var('person'))->first();
 
 ?>
 <!doctype html>

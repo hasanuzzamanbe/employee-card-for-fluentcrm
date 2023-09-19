@@ -129,12 +129,15 @@ class AdminAjaxHandler
         $data['other_info'] = json_encode($employee['other_info']);
         $data['social_info'] = json_encode($social_info);
 
+        $data['hash'] = md5($data['email']);
+        
         if ($id) {
             $data['updated_at'] = current_time('mysql');
 
             $employee = emcDb()->table('employee_card_info')->where('id', $id)->update($data);
 
         } else {
+
             $data['created_at'] = current_time('mysql');
             $data['updated_at'] = current_time('mysql');
             $employee = emcDb()->table('employee_card_info')->insert([

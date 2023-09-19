@@ -60,6 +60,7 @@ class Activator
             state MEDIUMTEXT NOT NULL,
             phone VARCHAR(100) NOT NULL DEFAULT '',
             email VARCHAR(100) NOT NULL DEFAULT '',
+            hash VARCHAR(40) NOT NULL DEFAULT '',
             postcode VARCHAR(32) NOT NULL DEFAULT '',
             other_info LONGTEXT NOT NULL DEFAULT '',
             image VARCHAR(255) NOT NULL DEFAULT '',
@@ -70,7 +71,6 @@ class Activator
         $this->runSQL($sql, $table_name);
     }
 
-    
 
     private function runSQL($sql, $tableName)
     {

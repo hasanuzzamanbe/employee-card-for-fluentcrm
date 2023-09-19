@@ -208,6 +208,7 @@ export default {
     },
     onMediaSelected ($selected) {
       if ($selected.length) {
+        console.log($selected)
         this.employee.image = $selected[0].url
       }
     }
