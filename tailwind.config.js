@@ -3,8 +3,7 @@ module.exports = {
     content: [
         'employee-card.php',
         './public/**/*.html',
-        './views/**/*.php',
-        './src/**/*.{vue,js,ts,jsx,tsx}'
+        './src/**/*.{vue,js,ts,jsx,tsx}',
     ],
     theme: {
         extend: {},
