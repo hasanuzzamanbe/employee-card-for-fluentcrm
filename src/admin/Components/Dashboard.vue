@@ -14,25 +14,18 @@
         >
           <div class="flex gap-4">
             <img
-              v-if="emp.image"
-              :src="emp.image"
+              v-if="emp.photo"
+              :src="emp.photo"
               class="w-[50px] aspect-square object-fill rounded-full"
             />
-            <h3>{{ emp.name }}</h3>
+            <h3>{{ emp.full_name }}</h3>
           </div>
           <p>{{ emp.email }}</p>
-          <p>{{ emp.designation }}</p>
           <el-button-group class="mt-2">
-            <el-button size="small" @click="() => $router.push({name: 'employee', params: {id: emp.id}})">Edit</el-button>
-            <el-button size="small" @click="view(emp.id)">View</el-button>
+            <el-button size="small" @click="() => $router.push({name: 'employee', params: {id: emp.id}})">QR</el-button>
+            <el-button size="small" @click="view(emp)">Preview</el-button>
 
           </el-button-group>
-
-          <el-popconfirm title="Are you sure to delete this?" @confirm="deleteEmployee(emp.id)">
-            <template #reference>
-                <span class="float-right text-red-500 mt-2 cursor-pointer"><Delete  class="w-4"/></span>
-            </template>
-          </el-popconfirm>
         </div>
       </div>
       <div v-else>
@@ -73,7 +66,7 @@ export default {
         phone: '',
         postcode: '',
         other_info: '',
-        image: '',
+        photo: '',
         social_info: {
           facebook: '',
           twitter: '',
@@ -91,21 +84,15 @@ export default {
     }
   },
   methods: {
-    view (id) {
-      window.open(window.employeeCard.site_url + '/contact_card/' + id, '_blank')
-    },
-    deleteEmployee(id) {
-        this.$adminPost({
-                route: 'delete_employee',
-                id: id
-            }).then(response => {
-                this.getEmployees()
-            })
+    view (emp) {
+      window.open(window.employeeCard.site_url + '/person/' + emp?.hash);
     },
     getEmployees () {
       this.$adminGet({
         route: 'get_employees'
       }).then(response => {
+
+        console.log(response.data)
         this.employees = response.data.data
       })
     },

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Employee Card
+ * Plugin Name: Employee VCF
  * Plugin URI: http://wpminers.com/
  * Description: A sample Wordpress plugin to implement Vue with tailwind.
  * Author: Hasanuzzaman
@@ -41,7 +41,6 @@ class EmployeeCard
             if (get_query_var('person') == false || get_query_var('person') == '') {
                 return $template;
             }
-
             return EMPLOYEE_CARD_DIR . '/views/contactcard.php';
         });
     }
@@ -59,24 +58,14 @@ class EmployeeCard
             }
             global $submenu;
             add_menu_page(
-                'Employee Card',
-                'Employee Card',
+                'Employee VCF',
+                'Employee VCF',
                 'manage_options',
                 'employee-card.php',
                 array($this, 'renderAdminPage'),
                 'dashicons-admin-users',
-                25
+                99
             );
-            $submenu['employee-card.php']['dashboard'] = array(
-                'Employees',
-                'manage_options',
-                'admin.php?page=employee-card.php#/',
-            );
-            // $submenu['employee-card.php']['contact'] = array(
-            //     'Contact',
-            //     'manage_options',
-            //     'admin.php?page=employee-card.php#/contact',
-            // );
         });
     }
 
@@ -133,15 +122,20 @@ class EmployeeCard
 }
 
 
-(new EmployeeCard())->boot();
+add_action('fluentcrm_loaded', function () {
+    (new EmployeeCard())->boot();
+});
 
-
-
-
-
-//$parsedUrl = (new \EmployeeCard\Classes\URL())->sign('test\{id}',['id'=>'1']);
-//$isValid = (new \EmployeeCard\Classes\URL())->isValidSignedUrl($parsedUrl);
-//
-//echo $parsedUrl.'<br>';
-//var_dump($isValid);
-//die();
+add_action('fluentcrm_loaded',  function () {
+    $key = 'custom_profile';
+    $sectionTitle = 'Custom Profile';
+    $callback = function($contentArr, $subscriber) {
+        $contentArr['heading'] = 'Content Heading';
+        $contentArr['content_html'] = "
+                    <div class='employee_card-admin-page relative lg:h-[calc(100vh-97px)] overflow-scroll lg:overflow-visible' id='employee_card_app'>
+                        <router-view></router-view>
+                    </div>";
+        return $contentArr;
+    };
+    FluentCrmApi('extender')->addProfileSection( $key, $sectionTitle, $callback);
+});

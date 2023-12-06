@@ -2,6 +2,8 @@
 
 namespace EmployeeCard\Classes;
 
+use FluentCrm\App\Api\FluentCrmApi;
+
 
 class AdminAjaxHandler
 {
@@ -24,8 +26,6 @@ class AdminAjaxHandler
             'get_employee' => 'getEmployee',
             'get_employees' => 'getEmployees',
             'edit_employee' => 'editEmployee',
-            'update_employee' => 'updateEmployee',
-            'delete_employee' => 'deleteEmployee'
         );
         if (isset($validRoutes[$route])) {
             do_action('buy-me-coffee/doing_ajax_forms_' . $route);
@@ -37,16 +37,24 @@ class AdminAjaxHandler
 
     public function getEmployees()
     {
-        $employees = emcDb()->table('employee_card_info')->get();
 
-        foreach ($employees as $key => $employee) {
-            $employees[$key]->social_info = json_decode($employee->social_info);
-            $employees[$key]->other_info = json_decode($employee->other_info);
-        }
+        $contactApi = FluentCrmApi('contacts');
+
+        $subscribedContacts = $contactApi->getInstance()
+            ->where('status', 'subscribed')
+            ->get();
+
+
+//        $employees = emcDb()->table('employee_card_info')->get();
+
+//        foreach ($employees as $key => $employee) {
+//            $employees[$key]->social_info = json_decode($employee->social_info);
+//            $employees[$key]->other_info = json_decode($employee->other_info);
+//        }
 
         wp_send_json_success([
             'message' => 'Employee fetched successfully!',
-            'data' => $employees
+            'data' => $subscribedContacts
         ]);
     }
 
@@ -81,10 +89,11 @@ class AdminAjaxHandler
             ), 401);
         }
 
-        $employee = emcDb()->table('employee_card_info')->where('id', $id)->first();
+        $contactApi = FluentCrmApi('contacts');
+        $employee = $contactApi->getContact($id);
 
-        $employee->social_info = json_decode($employee->social_info);
-        $employee->other_info = json_decode($employee->other_info);
+//        $employee->social_info = json_decode($employee->social_info);
+//        $employee->other_info = json_decode($employee->other_info);
 
         wp_send_json_success(
             [

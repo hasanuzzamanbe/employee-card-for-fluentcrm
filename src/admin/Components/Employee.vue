@@ -1,17 +1,11 @@
 <template>
   <div class="w-[calc(100%+20px)] h-full ml-[-20px] lg:absolute">
-
     <div class="h-full">
-
       <div class=" bg-white p-4">
-        <a class="cursor-pointer text-lg" @click="$router.go(-1)"> Employees </a><span> / {{ employee?.name }}</span>
+        <a class="cursor-pointer text-lg" @click="$router.go(-1)"> Employees </a><span> / {{ employee?.full_name }}</span>
       </div>
-
       <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 h-[calc(100%-50px)] gap-4">
-
-
         <div class="col-span-full lg:col-span-2 xl:col-span-3 h-full lg:overflow-y-scroll employee-info-wrapper">
-
           <div class="p-4 lg:pr-0" >
             <div class="employee-card p-8 bg-white rounded" >
 
@@ -25,20 +19,20 @@
                     <div class="lg:pr-4 border-solid border-0 lg:border-r border-gray-200 " >
 
                       <div >
-                        <div v-if="employee.image" class="employee-profile-image">
-                          <img class="border rounded-lg w-full aspect-square object-fill" :src="employee.image"
+                        <div v-if="employee.photo" class="employee-profile-image">
+                          <img class="border rounded-lg w-full aspect-square object-fill" :src="employee.photo"
                                alt="Employee Image"/>
                         </div>
 
-                        <h2 class="text-center text-2xl m-0 text-gray-700">{{ employee.name }}</h2>
-                        <p class="text-sm">Designation: {{ employee.designation }}</p>
-                        <p class="text-sm text-justify">{{ employee.description }}</p>
+<!--                        <p class="text-sm">Designation: {{ employee.designation }}</p>-->
+<!--                        <p class="text-sm text-justify">{{ employee.description }}</p>-->
                       </div>
                     </div>
                   </div>
 
                   <div class="col-span-full lg:col-span-2">
                     <div class="employee-profile-info">
+                      <h2 class="text-2xl m-0 text-gray-700">{{ employee.full_name }}</h2>
 
                       <table>
                         <tbody>
@@ -49,7 +43,7 @@
 
                         <tr>
                           <td>Phone:</td>
-                          <td><p>{{ employee.phone }}</p></td>
+                          <td><p>{{ employee.phone ?? '-' }}</p></td>
                         </tr>
 
                         <tr>
@@ -58,32 +52,30 @@
                             <table>
                               <tbody>
                               <tr>
-                                <td class="w-[100px]">Address Line:</td>
-                                <td>{{ employee.address_1 }}</td>
+                                <td class="w-[100px]">Address:</td>
+                                <td>{{ employee.address_line_1 ?? '-' }}</td>
                               </tr>
 
                               <tr>
                                 <td>City:</td>
-                                <td>{{ employee.city }}</td>
+                                <td>{{ employee.city ?? '-' }}</td>
                               </tr>
 
                               <tr>
                                 <td>State:</td>
-                                <td>{{ employee.state }}</td>
+                                <td>{{ employee.state ?? '-' }}</td>
                               </tr>
 
                               <tr>
                                 <td>Post Code:</td>
-                                <td>{{ employee.postcode }}</td>
+                                <td>{{ employee.postcode ?? '-' }}</td>
                               </tr>
                               </tbody>
                             </table>
                           </td>
                         </tr>
-
                         </tbody>
                       </table>
-
                     </div>
 
                     <div class="employee-other-info">
@@ -92,22 +84,21 @@
                       </div>
                     </div>
 
-                    <div class="employee-social-links">
-                      <h3>Socials:</h3>
-                      <div class="border-2 border-black">
-                        <table>
-                          <template v-for="(social,link) in employee.social_info">
-                            <tr v-if="social">
-                              <td>{{ link }}</td>
-                              <td><a style="text-decoration: none;" :href="social" target="_blank"
-                                     v-html="social"></a>
-                              </td>
-                            </tr>
-                          </template>
-                        </table>
-
-                      </div>
-                    </div>
+<!--                    <div class="employee-social-links">-->
+<!--                      <h3>Socials:</h3>-->
+<!--                      <div class="border-2 border-black">-->
+<!--                        <table>-->
+<!--                          <template v-for="(social,link) in employee.social_info">-->
+<!--                            <tr v-if="social">-->
+<!--                              <td>{{ link }}</td>-->
+<!--                              <td><a style="text-decoration: none;" :href="social" target="_blank"-->
+<!--                                     v-html="social"></a>-->
+<!--                              </td>-->
+<!--                            </tr>-->
+<!--                          </template>-->
+<!--                        </table>-->
+<!--                      </div>-->
+<!--                    </div>-->
                   </div>
                 </div>
               </div>
@@ -140,7 +131,7 @@
               <br/>
               Scan this QR code to save this contact card to your phone. or visit this link.
               <br>
-              <p class="m-0 mt-4">Preview: <a class="" target="_blank" :href="url">{{ url }}</a></p>
+              <p class="m-0 mt-4 break-words">Preview: <a class="" target="_blank" :href="url">{{ url }}</a></p>
             </div>
           </div>
         </div>
@@ -178,14 +169,13 @@ export default {
   data() {
     return {
       employee: {},
-      addOrEditDialog: false,
       loading: true
     }
   },
 
   methods: {
     edit() {
-      this.addOrEditDialog = true;
+      window.location.href = window.employeeCard.site_url + '/wp-admin/admin.php?page=fluentcrm-admin#/subscribers/' + this.employee.id;
     },
     getEmployee() {
       this.loading = true;
@@ -200,7 +190,6 @@ export default {
       })
     },
     update(employeeInfo) {
-      this.addOrEditDialog = false
       this.$adminPost({
         route: 'update_employee',
         data: employeeInfo

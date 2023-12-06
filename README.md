@@ -1,6 +1,6 @@
 # Employee Contact card generator and vcf contact downloader (WordPress plugin)
 
-## Plugin name: Employee Card
+## Plugin name: Employee VCF
 
 ## Plugin Description: 
 WordPress plugin to manage employee profile. Card generator with contact downloads. (Contact.vcf)

@@ -1,21 +1,19 @@
-import { data } from "autoprefixer";
-
-console.log('admin front-end')
+// Note: This file is used for front-end related scripts
 document
    .getElementById('employee_vcard_download')
    .addEventListener('click', function () {
 
-    const fullName = document.getElementById('employee_name').innerText;
+    const fullName = document.getElementById('employee_name')?.innerText ?? '';
 
     //split full name into first and last name
     const nameArray = fullName.split(' ');
     const firstName = nameArray[0];
     const lastName = nameArray[1];
 
-    const email = document.getElementById('employee_email').innerText;
-    const phone = document.getElementById('employee_phone').innerText;
-    const designation = document.getElementById('employee_designation').innerText;
-    const profileImage = document.getElementById('employee_profile_image').src;
+    const email = document.getElementById('employee_email')?.innerText ?? '';
+    const phone = document.getElementById('employee_phone')?.innerText ?? '';
+    const designation = document.getElementById('employee_designation')?.innerText ?? '';
+    const profileImage = document.getElementById('employee_profile_image')?.src ?? '';
 
 const toDataURL = url => {
     //replace http with https from url

@@ -41,37 +41,7 @@ class Activator
         * and write your own query at createUserFavorite function
         */
 
-        $this->sampleTable();
     }
-
-    public function sampleTable()
-    {
-        global $wpdb;
-        $charset_collate = $wpdb->get_charset_collate();
-        $table_name = $wpdb->prefix . 'employee_card_info';
-        $sql = "CREATE TABLE $table_name (
-            id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            status VARCHAR(20) NOT NULL DEFAULT 'active',
-            name MEDIUMTEXT NOT NULL,
-            description MEDIUMTEXT NOT NULL,
-            designation MEDIUMTEXT NOT NULL,
-            address_1 MEDIUMTEXT NOT NULL,
-            city MEDIUMTEXT NOT NULL,
-            state MEDIUMTEXT NOT NULL,
-            phone VARCHAR(100) NOT NULL DEFAULT '',
-            email VARCHAR(100) NOT NULL DEFAULT '',
-            hash VARCHAR(40) NOT NULL DEFAULT '',
-            postcode VARCHAR(32) NOT NULL DEFAULT '',
-            other_info LONGTEXT NOT NULL DEFAULT '',
-            image VARCHAR(255) NOT NULL DEFAULT '',
-            social_info LONGTEXT NOT NULL DEFAULT '',
-            created_at TIMESTAMP NULL,
-            updated_at TIMESTAMP NULL
-            ) $charset_collate;";
-        $this->runSQL($sql, $table_name);
-    }
-
-
     private function runSQL($sql, $tableName)
     {
         global $wpdb;
