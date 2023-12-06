@@ -130,11 +130,20 @@ add_action('fluentcrm_loaded',  function () {
     $key = 'custom_profile';
     $sectionTitle = 'Custom Profile';
     $callback = function($contentArr, $subscriber) {
-        $contentArr['heading'] = 'Content Heading';
+//        var_dump($subscriber->hash); die();
+        $previewUrl = site_url() . '/person/' . $subscriber->hash;
+        $contentArr['heading'] = 'Profile Card Info';
         $contentArr['content_html'] = "
-                    <div class='employee_card-admin-page relative lg:h-[calc(100vh-97px)] overflow-scroll lg:overflow-visible' id='employee_card_app'>
-                        <router-view></router-view>
-                    </div>";
+        <div class='flex flex-wrap'>
+            <div>
+                    <img class='shadow-lg' src='" . "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data= $subscriber->hash" . "
+                     alt='QR Code'/>
+            </div>
+            <div>
+                    View profile:
+                     <a href='$previewUrl' target='_blank' class='ml-4 text-blue-500'>{$previewUrl}</a>
+            </div>
+        </div>";
         return $contentArr;
     };
     FluentCrmApi('extender')->addProfileSection( $key, $sectionTitle, $callback);

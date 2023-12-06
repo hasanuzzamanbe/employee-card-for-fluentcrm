@@ -17,7 +17,7 @@ class ContactHelper
 
         $subscriber = false;
         if (!$hash) {
-            $this->sendError([
+            wp_send_json_error([
                 'message' => __('Subscriber not found', 'fluent-crm')
             ]);
         }
@@ -25,7 +25,7 @@ class ContactHelper
         $subscriber = Subscriber::with($defaultWith)->where('hash', $hash)->first();
 
         if (!$subscriber) {
-            return $this->sendError([
+            wp_send_json_error([
                 'message' => __('Subscriber not found', 'fluent-crm')
             ]);
         }
